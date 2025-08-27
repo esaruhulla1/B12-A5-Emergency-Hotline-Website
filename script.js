@@ -47,3 +47,10 @@ getById('card-section').addEventListener('click', function (e) {
         historyContainer.append(newElement);
     }
 })
+
+
+// clear btn function
+getById('clear-btn').addEventListener('click', function(){
+    let historyContainer = getById('history-container')
+    historyContainer.innerHTML = ""
+})
