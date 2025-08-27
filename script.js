@@ -1,14 +1,49 @@
-function getById(id){
+function getById(id) {
     const element = document.getElementById(id)
     return element;
 }
 
-getById('card-section').addEventListener('click', function(e){
+getById('card-section').addEventListener('click', function (e) {
 
     // hert count incrise function
-    if(e.target.className.includes('heart-icon')){
+    if (e.target.className.includes('heart-icon')) {
         const heartBtn = e.target;
-        let oldHertCount =  Number(getById('hert-count-icon-div').innerText);
-        getById('hert-count-icon-div').innerText = oldHertCount+1;   
+        let oldHertCount = Number(getById('hert-count-icon-div').innerText);
+        getById('hert-count-icon-div').innerText = oldHertCount + 1;
+    }
+
+    // call btn function
+    if (e.target.className.includes("call-btn")) {
+        // coins function
+        const availabeCoin = Number(getById('availavle-coin').innerText)
+        if (availabeCoin >= 20) {
+            getById('availavle-coin').innerText = availabeCoin - 20;
+        } else {
+            alert("❌ আপনার পর্জাপ্ত কয়েন নেই কল করার করতে কমপক্ষে 20 কয়েন লাগবে");
+            return;
+        }
+        // allert function
+        const callBtn = e.target;
+        const serviceName = callBtn.parentNode.parentNode.children[1].children[1].innerText;
+        const serviceNummber = callBtn.parentNode.parentNode.children[2].children[0].innerText;
+        alert("📞 Claling " + serviceName + " " + serviceNummber + "...")
+
+        // History function
+        const serviceHeading = callBtn.parentNode.parentNode.children[1].children[0].innerText;
+        const nowTime = new Date().toLocaleTimeString()
+        const historyContainer = getById('history-container')
+        const newElement = document.createElement('div')
+        newElement.innerHTML = `
+                    <div class="flex items-center justify-between  bg-[#fafafa] rounded-md  md:p-2 lg:p-5 mb-2">
+                        <div>
+                            <h2 class="text-sm lg:text-lg">${serviceHeading}</h2>
+                            <p class="text-sm lg:text-[15px] mt-1 lg:mt-2">${serviceNummber}</p>
+                        </div>
+                        <div>
+                            <p class="sm:text-sm ">${nowTime}</p>
+                        </div>
+                    </div>
+        `
+        historyContainer.append(newElement);
     }
 })
