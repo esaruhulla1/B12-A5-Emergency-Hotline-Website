@@ -26,7 +26,7 @@ getById('card-section').addEventListener('click', function (e) {
         const callBtn = e.target;
         const serviceName = callBtn.parentNode.parentNode.children[1].children[1].innerText;
         const serviceNummber = callBtn.parentNode.parentNode.children[2].children[0].innerText;
-        alert("📞 Claling " + serviceName + " " + serviceNummber + "...")
+        alert("📞 calling " + serviceName + " " + serviceNummber + "...")
 
         // History function
         const serviceHeading = callBtn.parentNode.parentNode.children[1].children[0].innerText;
@@ -46,11 +46,21 @@ getById('card-section').addEventListener('click', function (e) {
         `
         historyContainer.append(newElement);
     }
+
+    // copy btn function
+    if (e.target.className.includes('copy-btn')) {
+        const copyBtn = e.target;
+        let oldCopyCount = Number(getById('copy-count-icon-div').innerText);
+        getById('copy-count-icon-div').innerText = oldCopyCount + 1;
+        const serviceNummber = copyBtn.parentNode.parentNode.children[2].children[0].innerText;
+        alert("নম্বর কপি হয়েছে: " + serviceNummber);
+        navigator.clipboard.writeText(serviceNummber)
+    }
 })
 
 
 // clear btn function
-getById('clear-btn').addEventListener('click', function(){
+getById('clear-btn').addEventListener('click', function () {
     let historyContainer = getById('history-container')
     historyContainer.innerHTML = ""
 })
