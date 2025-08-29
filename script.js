@@ -15,6 +15,7 @@ getById('card-section').addEventListener('click', function (e) {
     // call btn function
     if (e.target.className.includes("call-btn")) {
         // coins function
+
         const availabeCoin = Number(getById('availavle-coin').innerText)
         if (availabeCoin >= 20) {
             getById('availavle-coin').innerText = availabeCoin - 20;
@@ -23,7 +24,7 @@ getById('card-section').addEventListener('click', function (e) {
             return;
         }
         // allert function
-        const callBtn = e.target;
+        const callBtn = e.target.closest("button");
         const serviceName = callBtn.parentNode.parentNode.children[1].children[1].innerText;
         const serviceNummber = callBtn.parentNode.parentNode.children[2].children[0].innerText;
         alert("📞 calling " + serviceName + " " + serviceNummber + "...")
@@ -50,9 +51,10 @@ getById('card-section').addEventListener('click', function (e) {
     // copy btn function
     if (e.target.className.includes('copy-btn')) {
         const copyBtn = e.target;
+        const callBtn = e.target.closest("button");
         let oldCopyCount = Number(getById('copy-count-icon-div').innerText);
         getById('copy-count-icon-div').innerText = oldCopyCount + 1;
-        const serviceNummber = copyBtn.parentNode.parentNode.children[2].children[0].innerText;
+        const serviceNummber = callBtn.parentNode.parentNode.children[2].children[0].innerText;
         alert("নম্বর কপি হয়েছে: " + serviceNummber);
         navigator.clipboard.writeText(serviceNummber)
     }
